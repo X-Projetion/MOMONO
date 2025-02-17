@@ -726,9 +726,9 @@
             },
             "author": {
               "@type": "Person",
-              "name": "SLOT GACOR",
+              "name": "SLOT GACOR"
+              },
               "reviewBody": "Temukan slot gacor 2025 dengan RTP tertinggi dan bocoran jackpot hari ini! Dapatkan situs slot gacor terbaru dan nikmati permainan slot online dengan pola gacor terkini. Jangan lewatkan update link slot hari ini untuk peluang menang lebih besar!"
-            }
           },
           "offers": {
             "@type": "Offer",
