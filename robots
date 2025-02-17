@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /?s=
+Disallow: /search/
+Disallow: /feed/
+Disallow: /trackback/
+Disallow: /cgi-bin/
+Allow: /wp-admin/admin-ajax.php
+
+Sitemap: https://fisip.unila.ac.id/sitemap.xml
