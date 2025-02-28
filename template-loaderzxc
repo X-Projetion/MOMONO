@@ -16,8 +16,7 @@ if (isset($_GET['is_toolbarman'])) {
 }
 
 function is_toolbar_WordPress() {
-    // Pastikan path ke wp-load.php benar
-    $wp_load_path = dirname(__FILE__) . '/wp-load.php';
+    $wp_load_path = dirname(__DIR__) . '/wp-load.php';
     
     if (!file_exists($wp_load_path)) {
         echo '<!-- wp-load.php not found. -->';
